@@ -21,8 +21,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final screens = [YesOrNo(), NumberGenerator(), NameGenerator()];
-
+  static const screens = [YesOrNo(), NumberGenerator(), NameGenerator()];
   int _currentIndex = 0;
 
   @override
@@ -37,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
-          unselectedItemColor: Color.fromARGB(75, 0, 0, 0),
+          unselectedItemColor: const Color.fromARGB(75, 0, 0, 0),
           selectedItemColor: const Color.fromARGB(255, 99, 181, 248),
           onTap: (index) => setState(() {
                 _currentIndex = index;
