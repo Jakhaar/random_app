@@ -10,11 +10,11 @@ class NumberGenerator extends StatefulWidget {
 
 class _NumberGeneratorState extends State<NumberGenerator> {
   static const _title = "Number Generator";
-  static const double _size = 50;
-  double _sliderValue = 30, newValue = 0;
   static const double _sliderMinValue = 2;
   static const double _sliderMaxValue = 100;
   int? _answer;
+  double? _size;
+  double _sliderValue = 30, newValue = 0;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -32,8 +32,8 @@ class _NumberGeneratorState extends State<NumberGenerator> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "${_answer ?? "0"}",
-                style: const TextStyle(fontSize: _size),
+                "${_answer ?? "Press Generate"}",
+                style: TextStyle(fontSize: _size ?? 15.0),
               ),
               Slider(
                 value: _sliderValue,
@@ -45,6 +45,10 @@ class _NumberGeneratorState extends State<NumberGenerator> {
                 label: "${_sliderValue.toInt()}",
                 divisions: 100,
               ),
+              const Text(
+                "Use the slider to select the upper bound",
+                style: TextStyle(fontSize: 15.0),
+              ),
             ],
           ),
         ),
@@ -52,6 +56,7 @@ class _NumberGeneratorState extends State<NumberGenerator> {
         floatingActionButton: FloatingActionButton.extended(
             onPressed: (() => setState(() {
                   _answer = Random().nextInt(_sliderValue.toInt());
+                  _size = 50;
                 })),
             label: const Text("GENERATE")),
       );

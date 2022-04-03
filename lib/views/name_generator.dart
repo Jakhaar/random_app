@@ -10,17 +10,15 @@ class NameGenerator extends StatefulWidget {
 }
 
 class _NameGeneratorState extends State<NameGenerator> {
-  static const _answers = ["Joao", "Antonio", "ABC", "DEF"];
+  final List<String> _answers = [];
   static const String _title = "Name Generator";
   final Random _randomNumber = Random();
-  int _value = 0, currentIndex = 0;
-  bool _buttonPressed = false;
-  double _size = 15;
+  int _index = 0, currentIndex = 0;
+  double? _textSize;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -31,22 +29,33 @@ class _NameGeneratorState extends State<NameGenerator> {
         ),
       ),
       body: Center(
-        child: Text(
-          _buttonPressed == true
-              ? _answers[_value]
-              : "Press the Generate button below",
-          style: TextStyle(fontSize: _size),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              _answers.isEmpty ? "Create a list first" : _answers[_index],
+              style: TextStyle(fontSize: _textSize ?? 15),
+            ),
+            ElevatedButton(
+              onPressed: null,
+              child:
+                  Text(_answers.isEmpty ? "Create a list first" : "Edit list"),
+              style: ElevatedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20)),
+            )
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: (() => setState(() {
-                _value = (_randomNumber.nextInt(_answers.length) %
-                    (_answers.length - 1));
-                _buttonPressed = true;
-                _size = 50;
-              })),
-          label: const Text("GENERATE")),
+      floatingActionButton: _answers.isEmpty
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: (() => setState(() {
+                    _index = (_randomNumber.nextInt(_answers.length) %
+                        _answers.length);
+                    _textSize = 50;
+                  })),
+              label: const Text("GENERATE")),
     );
   }
 }
