@@ -15,7 +15,7 @@ class _YesOrNoState extends State<YesOrNo> {
   final Random _randomNumber = Random();
   int _value = 0, currentIndex = 0;
   bool _buttonPressed = false;
-  double _size = 15;
+  double _size = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,8 @@ class _YesOrNoState extends State<YesOrNo> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: const Color.fromARGB(255, 16, 168, 228),
+          heroTag: "generateAnswer",
           onPressed: (() => setState(() {
                 _value = (_randomNumber.nextInt(10) % 2);
                 _buttonPressed = true;
