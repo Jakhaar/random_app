@@ -36,7 +36,7 @@ class _NameGenListViewState extends State<NameGenListView> {
           Widget remindButton = TextButton(
             child: const Text("Remind me later"),
             onPressed: () {
-              return;
+              Navigator.of(context).pop();
             },
           );
           // Widget cancelButton = TextButton(
@@ -70,6 +70,7 @@ class _NameGenListViewState extends State<NameGenListView> {
                   ),
                   onPressed: () {
                     _remindMe = false;
+                    Navigator.of(context).pop();
                   },
                   child: const Text('Got it!'),
                 ),
