@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:random_app/views/name_generator.dart';
 import 'package:random_app/views/number_generator.dart';
 import 'package:random_app/views/yes_or_no.dart';
+import 'package:random_app/views/db_data_gen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -21,7 +22,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  static const screens = [YesOrNo(), NumberGenerator(), NameGenerator()];
+  static const screens = [
+    YesOrNo(),
+    NumberGenerator(),
+    NameGenerator(),
+    DBGenerator()
+  ];
   int _currentIndex = 0;
 
   @override
@@ -48,7 +54,9 @@ class _MainPageState extends State<MainPage> {
                 icon: Icon(Icons.calculate_outlined),
                 label: "Number Generator"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.list), label: "Name Generator")
+                icon: Icon(Icons.list), label: "Name Generator"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.cloud), label: "DB Data Generator")
           ]),
     );
   }

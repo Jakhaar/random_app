@@ -13,7 +13,7 @@ class _YesOrNoState extends State<YesOrNo> {
   static const _answers = ["Yes!", "No!"];
   static const String _title = "Yes or No?";
   final Random _randomNumber = Random();
-  int _value = 0, currentIndex = 0;
+  int _value = 0;
   bool _buttonPressed = false;
   double _size = 20;
 

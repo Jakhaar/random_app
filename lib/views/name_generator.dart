@@ -13,7 +13,7 @@ class _NameGeneratorState extends State<NameGenerator> {
   final _answers = [];
   static const String _title = "Name Generator";
   final Random _randomNumber = Random();
-  int _index = 0, currentIndex = 0;
+  int _index = 0;
   double? _textSize;
 
   @override
