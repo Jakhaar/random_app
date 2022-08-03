@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:random_app/logic/api/api_service.dart';
+import 'package:random_app/logic/api/user_model.dart';
 
 class DBGenerator extends StatefulWidget {
   const DBGenerator({Key? key}) : super(key: key);
@@ -10,9 +12,15 @@ class DBGenerator extends StatefulWidget {
 class _DBGeneratorState extends State<DBGenerator> {
   static const _title = "DB Data Generator";
   static bool _remindMe = true;
+  late List<UserModel>? _userModelList = [];
 
   static Icon _currentIcon = Icon(Icons.search);
   static var _buttonText = 'Search for available Data';
+
+  void _getData() async {
+    _userModelList = (await ApiService().getUsers())!;
+    Future.delayed(const Duration(seconds: 5)).then((value) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +37,39 @@ class _DBGeneratorState extends State<DBGenerator> {
           style: TextStyle(color: Color.fromARGB(75, 0, 0, 0)),
         ),
       ),
-      body: const Center(
-        child: Text('Lorem Ipsum'),
+      body: Center(
+        child: _userModelList == null || _userModelList!.isEmpty
+            ? _remindMe
+                ? const Text('No Data')
+                : const CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: _userModelList!.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(_userModelList![index].id.toString()),
+                            Text(_userModelList![index].username),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(_userModelList![index].email),
+                            Text(_userModelList![index].website),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
@@ -73,10 +112,11 @@ class _DBGeneratorState extends State<DBGenerator> {
                     primary: Colors.white,
                     // textStyle: const TextStyle(fontSize: 20),
                   ),
-                  onPressed: () {
-                    _remindMe = false;
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: (() => setState(() {
+                        Navigator.of(context).pop();
+                        _remindMe = false;
+                        _getData();
+                      })),
                   child: const Text('Got it!'),
                 ),
               ],
